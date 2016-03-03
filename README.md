@@ -4,8 +4,6 @@ AnimationSugar is a tiny Swift library that can make iOS animation code slightly
 
 When iterating on animations, it can be a pain to swap between the many method signatures of `UIView.animateWithDuration`. Also, multi-step animations that nest inside of completion blocks can quickly become an unreadabe mess. 
 
-With AnimationSugar, options, delays, springs, and completion handlers can easily be added to or removed from a block of animations using fluent-style syntax. Avoid nested callback hell when chaining animations together by using the `thenAnimate()` method.
-
 It was built at [Intrepid](http://intrepid.io).
 
 ##Examples
@@ -15,17 +13,6 @@ It was built at [Intrepid](http://intrepid.io).
     }
 
 ![Image of animation to the right](Images/AnimationSugar_1.gif)
-
-    animate(duration: 0.3) {
-        view.transform.tx += 150
-    }
-    .withOption(.CurveEaseOut)
-    .withCompletion {
-        _ in
-        view.backgroundColor = UIColor.redColor()
-    }
-
-![Image of animation with completion](Images/AnimationSugar_2.gif)
 
     animate(duration: 0.3) {
         view.transform.tx += 150
@@ -48,6 +35,17 @@ It was built at [Intrepid](http://intrepid.io).
     }
 
 ![Image of animation in a square](Images/AnimationSugar_4.gif)
+
+    animate(duration: 0.3) {
+        view.transform.tx += 150
+    }
+    .withOption(.CurveEaseOut)
+    .withCompletion {
+        _ in
+        view.backgroundColor = UIColor.redColor()
+    }
+
+![Image of animation with completion](Images/AnimationSugar_2.gif)
 
 ## Usage
 
