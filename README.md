@@ -2,7 +2,7 @@
 
 AnimationSugar is a tiny Swift library that can make iOS animation code slightly less ugly.
 
-When iterating on animations, it can be a pain to swap between the many method signatures of `UIView.animateWithDuration`. Also, multi-step animations that nest inside of completion blocks can quick become an unreadabe mess. 
+When iterating on animations, it can be a pain to swap between the many method signatures of `UIView.animateWithDuration`. Also, multi-step animations that nest inside of completion blocks can quickly become an unreadabe mess. 
 
 With AnimationSugar, options, delays, springs, and completion handlers can easily be added to or removed from a block of animations using fluent-style syntax. Avoid nested callback hell when chaining animations together by using the `thenAnimate()` method.
 
