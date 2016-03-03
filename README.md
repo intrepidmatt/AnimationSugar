@@ -55,27 +55,25 @@ It was built at [Intrepid](http://intrepid.io).
 
 ## Methods
 
-> `func animate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
+- `func animate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
+> Starts an animation. Use trailing closure syntax to write your animations, e.g.: `animate(0.3) { ... }`. This is a global method (prevents compiler warnings of unused initializer).
 
-Starts an animation. Use trailing closure syntax to write your animations, e.g.: `animate(0.3) { ... }`. This is a global method (prevents compiler warnings of unused initializer).
+ 
+- `func withDelay(delay: NSTimeInterval) -> Animation`
+> Set a delay to wait before the animation starts
 
-> `func withDelay(delay: NSTimeInterval) -> Animation`
+ 
+- `func withOption(option: UIViewAnimationOptions) -> Animation`
+> Set an animation option for the animation. For multiple options, either chain them e.g. `.withOption(.Autoreverse).withOption(.Repeat)` or use once with an array e.g. `.withOption([.Autoreverse, .Repeat])`.
 
-Set a delay to wait before the animation starts
+ 
+- `func withSpring(dampingRatio dampingRatio: CGFloat, initialVelocity: CGFloat) -> Animation`
+> Use a spring animation curve with the given damping ratio and initial velocity.
 
-> `func withOption(option: UIViewAnimationOptions) -> Animation`
+ 
+- `func withCompletion(completion: (Bool) -> ()) -> Animation`
+> Set a completion block for when the animation finishes. Use trailing closure syntax e.g. `animate(0.3) { ... }.withCompletion { ... }`
 
-Set an animation option for the animation. For multiple options, either chain them e.g. `.withOption(.Autoreverse).withOption(.Repeat)` or use once with an array e.g. `.withOption([.Autoreverse, .Repeat])`.
-
-> `func withSpring(dampingRatio dampingRatio: CGFloat, initialVelocity: CGFloat) -> Animation`
-
-Use a spring animation curve with the given damping ratio and initial velocity.
-
-> `func withCompletion(completion: (Bool) -> ()) -> Animation`
-
-Set a completion block for when the animation finishes. Use trailing closure syntax e.g. `animate(0.3) { ... }.withCompletion { ... }`
-
-> `func thenAnimate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
-
-Chain a new animation to occur after the previous animation is completed. See the "square" example above.
-
+ 
+- `func thenAnimate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
+> Chain a new animation to occur after the previous animation is completed. See the "square" example above.
