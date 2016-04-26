@@ -1,3 +1,5 @@
+![AnimationSugar](Images/AnimationSugar_logo.png)
+
 ## AnimationSugar
 
 AnimationSugar is a tiny Swift library that can make iOS animation code slightly less ugly.
@@ -8,44 +10,43 @@ It was built at [Intrepid](http://intrepid.io).
 
 ##Examples
 
-    animate(duration: 0.3) {
+    animate {
         view.transform.tx += 150
     }
 
 ![Image of animation to the right](Images/AnimationSugar_1.gif)
 
-    animate(duration: 0.3) {
+    animate {
         view.transform.tx += 150
     }
     .withSpring(dampingRatio: 0.5, initialVelocity: 0)
 
-![Image of animation with spring](Images/AnimationSugar_3.gif)
+![Image of animation with spring](Images/AnimationSugar_2.gif)
 
-    animate(duration: 0.3) {
+    animate {
         view.transform.tx += 150
     }
-    .thenAnimate(duration: 0.3) {
+    .thenAnimate {
         view.transform.ty += 150
     }
-    .thenAnimate(duration: 0.3) {
+    .thenAnimate {
         view.transform.tx -= 150
     }
-    .thenAnimate(duration: 0.3) {
+    .thenAnimate {
         view.transform.ty -= 150
     }
 
-![Image of animation in a square](Images/AnimationSugar_4.gif)
+![Image of animation in a square](Images/AnimationSugar_3.gif)
 
     animate(duration: 0.3) {
         view.transform.tx += 150
     }
     .withOption(.CurveEaseOut)
-    .withCompletion {
-        _ in
-        view.backgroundColor = UIColor.redColor()
+    .withCompletion { _ in
+        view.backgroundColor = UIColor(white: 0.8, alpha: 1.0)
     }
 
-![Image of animation with completion](Images/AnimationSugar_2.gif)
+![Image of animation with completion](Images/AnimationSugar_4.gif)
 
 ## Usage
 
@@ -53,27 +54,26 @@ It was built at [Intrepid](http://intrepid.io).
 
     pod install 'AnimationSugar'
 
-## Methods
+## Reference
 
-- `func animate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
-> Starts an animation. Use trailing closure syntax to write your animations, e.g.: `animate(0.3) { ... }`. This is a global method (prevents compiler warnings of unused initializer).
+`func animate(duration duration: NSTimeInterval = defaultAnimationDuration, animations: () -> ()) -> Animation`
 
- 
-- `func withDelay(delay: NSTimeInterval) -> Animation`
-> Set a delay to wait before the animation starts
+- Starts an animation. Use trailing closure syntax to write your animations, e.g.: `animate(duration: 0.3) { ... }`. Without the duration argument, a default duration is used (see `defaultAnimationDuration`). 
 
- 
-- `func withOption(option: UIViewAnimationOptions) -> Animation`
-> Set an animation option for the animation. For multiple options, either chain them e.g. `.withOption(.Autoreverse).withOption(.Repeat)` or use once with an array e.g. `.withOption([.Autoreverse, .Repeat])`.
+`func withDelay(delay: NSTimeInterval) -> Animation`
+- Set a delay to wait before the animation starts.
 
- 
-- `func withSpring(dampingRatio dampingRatio: CGFloat, initialVelocity: CGFloat) -> Animation`
-> Use a spring animation curve with the given damping ratio and initial velocity.
+`func withOption(option: UIViewAnimationOptions) -> Animation`
+- Set an animation option for the animation. For multiple options, either chain them e.g. `.withOption(.Autoreverse).withOption(.Repeat)` or use once with an array e.g. `.withOption([.Autoreverse, .Repeat])`.
 
- 
-- `func withCompletion(completion: (Bool) -> ()) -> Animation`
-> Set a completion block for when the animation finishes. Use trailing closure syntax e.g. `animate(0.3) { ... }.withCompletion { ... }`
+`func withSpring(dampingRatio dampingRatio: CGFloat, initialVelocity: CGFloat) -> Animation`
+- Use a spring animation curve with the given damping ratio and initial velocity.
 
- 
-- `func thenAnimate(duration duration: NSTimeInterval, animations: () -> ()) -> Animation`
-> Chain a new animation to occur after the previous animation is completed. See the "square" example above.
+`func withCompletion(completion: (Bool) -> ()) -> Animation`
+- Set a completion block for when the animation finishes. Use trailing closure syntax e.g. `animate { ... }.withCompletion { ... }`
+
+`func thenAnimate(duration duration: NSTimeInterval = defaultAnimationDuration, animations: () -> ()) -> Animation`
+- Chain a new animation to occur after the previous animation is completed. See the "square" example above. Without the duration argument, a default duration is used (see `defaultAnimationDuration`)
+
+`static var defaultAnimationDuration`
+- Change the default animation duration, to use `animate()` or `thenAnimate()` without a duration argument. This value is initialized to 0.3 seconds and can be changed at any time, i.e. `Animation.defaultAnimationDuration = 0.25`.
