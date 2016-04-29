@@ -11,35 +11,35 @@ It was built at [Intrepid](http://intrepid.io).
 ##Examples
 
     animate {
-        view.transform.tx += 150
+        view.translate(tx: 150, ty: 0)
     }
 
 ![Image of animation to the right](Images/AnimationSugar_1.gif)
 
     animate {
-        view.transform.tx += 150
+        view.translate(tx: 150, ty: 0)
     }
     .withSpring(dampingRatio: 0.5, initialVelocity: 0)
 
 ![Image of animation with spring](Images/AnimationSugar_2.gif)
 
     animate {
-        view.transform.tx += 150
+        view.translate(tx: 150, ty: 0)
     }
     .thenAnimate {
-        view.transform.ty += 150
+        view.translate(tx: 0, ty: 150)
     }
     .thenAnimate {
-        view.transform.tx -= 150
+        view.translate(tx: -150, ty: 0)
     }
     .thenAnimate {
-        view.transform.ty -= 150
+        view.translate(tx: 0, yt: -150)
     }
 
 ![Image of animation in a square](Images/AnimationSugar_3.gif)
 
     animate(duration: 0.3) {
-        view.transform.tx += 150
+        view.translate(tx: 150, ty: 0)
     }
     .withOption(.CurveEaseOut)
     .withCompletion { _ in
@@ -55,6 +55,8 @@ It was built at [Intrepid](http://intrepid.io).
     pod install 'AnimationSugar'
 
 ## Reference
+
+### Animation helpers
 
 `func animate(duration duration: NSTimeInterval = defaultAnimationDuration, animations: () -> ()) -> Animation`
 
@@ -77,3 +79,47 @@ It was built at [Intrepid](http://intrepid.io).
 
 `static var defaultAnimationDuration`
 - Change the default animation duration, to use `animate()` or `thenAnimate()` without a duration argument. This value is initialized to 0.3 seconds and can be changed at any time, i.e. `Animation.defaultAnimationDuration = 0.25`.
+
+### UIView helpers
+
+`func translate(tx tx: CGFloat, ty: CGFloat)`
+
+- Translate a view by altering its `transform` property
+
+`func scale(sx sx: CGFloat, sy: CGFloat)`
+
+- Scale a view by altering its `transform` property
+
+`func rotate(angle angle: CGFloat)`
+
+- Rotate a view by altering its `transform` property
+
+`func translateFrame(tx tx: CGFloat, ty: CGFloat)`
+
+- Translate a view by altering its `frame` property
+
+`func stretchFrame(deltaWidth deltaWidth: CGFloat, deltaHeight: CGFloat)`
+
+- Stretch a view's `frame`
+
+`func resizeFrame(width width: CGFloat, height: CGFloat)`
+
+- Resize a view's `frame`
+
+`func flipHorizontal(perspectiveDistance: CGFloat = 1000.0)`
+
+- Flip a view along the horizontal axis.
+
+`func flipVertical(perspectiveDistance: CGFloat = 1000.0)`
+
+- Flip a view along the vertical axis.
+
+`func fadeIn(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation`
+
+- Fade in a view from invisible to visible over time. Can be chained with other animations.
+
+`func fadeOut(duration duration: NSTimeInterval = Animation.Constants.DefaultAnimationDuration) -> Animation`
+
+- Fade out a view from visible to invisible over time. Can be chained with other animations.
+
+
