@@ -179,7 +179,7 @@ extension UIView {
      - Parameter tx: Translation distance along the x axis
      - Parameter ty: Translation distance along the y axis
      */
-    func translate(tx tx: CGFloat, ty: CGFloat) {
+    func translate(tx tx: CGFloat = 0, ty: CGFloat = 0) {
         self.transform = CGAffineTransformTranslate(self.transform, tx, ty)
     }
     
@@ -208,7 +208,7 @@ extension UIView {
      - Parameter tx: Translation distance along the x axis
      - Parameter ty: Translation distance along the y axis
      */
-    func translateFrame(tx tx: CGFloat, ty: CGFloat) {
+    func translateFrame(tx tx: CGFloat = 0, ty: CGFloat = 0) {
         var frame = self.frame
         frame.origin.x = frame.origin.x + tx
         frame.origin.y = frame.origin.y + ty
@@ -286,7 +286,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns An `Animation` that can be chained or altered.
      */
-    func fadeOut(duration duration: NSTimeInterval = Animation.Constants.DefaultAnimationDuration) -> Animation {
+    func fadeOut(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
         return animate(duration: duration) {
             self.alpha = 0.0
         }

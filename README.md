@@ -11,35 +11,35 @@ It was built at [Intrepid](http://intrepid.io).
 ##Examples
 
     animate {
-        view.translate(tx: 150, ty: 0)
+        view.translate(tx: 150)
     }
 
 ![Image of animation to the right](Images/AnimationSugar_1.gif)
 
     animate {
-        view.translate(tx: 150, ty: 0)
+        view.translate(tx: 150)
     }
     .withSpring(dampingRatio: 0.5, initialVelocity: 0)
 
 ![Image of animation with spring](Images/AnimationSugar_2.gif)
 
     animate {
-        view.translate(tx: 150, ty: 0)
+        view.translate(tx: 150)
     }
     .thenAnimate {
-        view.translate(tx: 0, ty: 150)
+        view.translate(ty: 150)
     }
     .thenAnimate {
-        view.translate(tx: -150, ty: 0)
+        view.translate(tx: -150)
     }
     .thenAnimate {
-        view.translate(tx: 0, yt: -150)
+        view.translate(ty: -150)
     }
 
 ![Image of animation in a square](Images/AnimationSugar_3.gif)
 
     animate(duration: 0.3) {
-        view.translate(tx: 150, ty: 0)
+        view.translate(tx: 150)
     }
     .withOption(.CurveEaseOut)
     .withCompletion { _ in
@@ -82,7 +82,7 @@ It was built at [Intrepid](http://intrepid.io).
 
 ### UIView helpers
 
-`func translate(tx tx: CGFloat, ty: CGFloat)`
+`func translate(tx tx: CGFloat = 0, ty: CGFloat = 0)`
 
 - Translate a view by altering its `transform` property
 
@@ -94,7 +94,7 @@ It was built at [Intrepid](http://intrepid.io).
 
 - Rotate a view by altering its `transform` property
 
-`func translateFrame(tx tx: CGFloat, ty: CGFloat)`
+`func translateFrame(tx tx: CGFloat = 0, ty: CGFloat = 0)`
 
 - Translate a view by altering its `frame` property
 
@@ -118,7 +118,7 @@ It was built at [Intrepid](http://intrepid.io).
 
 - Fade in a view from invisible to visible over time. Can be chained with other animations.
 
-`func fadeOut(duration duration: NSTimeInterval = Animation.Constants.DefaultAnimationDuration) -> Animation`
+`func fadeOut(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation`
 
 - Fade out a view from visible to invisible over time. Can be chained with other animations.
 
