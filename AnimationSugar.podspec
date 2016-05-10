@@ -1,4 +1,4 @@
-#
+
 # Be sure to run `pod lib lint AnimationSugar.podspec' to ensure this is a
 # valid spec before submitting.
 #
@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "AnimationSugar"
-  s.version          = "0.0.1"
+  s.version          = "0.0.2"
   s.summary          = "Syntactic sugar for iOS animations."
 
 # This description is used to generate tags and improve search results.
