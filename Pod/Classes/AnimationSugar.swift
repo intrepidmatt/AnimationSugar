@@ -179,7 +179,7 @@ extension UIView {
      - Parameter tx: Translation distance along the x axis
      - Parameter ty: Translation distance along the y axis
      */
-    func translate(tx tx: CGFloat = 0, ty: CGFloat = 0) {
+    public func translate(tx tx: CGFloat = 0, ty: CGFloat = 0) {
         self.transform = CGAffineTransformTranslate(self.transform, tx, ty)
     }
     
@@ -189,7 +189,7 @@ extension UIView {
      - Parameter sx: Scale factor in the x dimension
      - Parameter xy: Scale factor in the y dimension
      */
-    func scale(sx sx: CGFloat, sy: CGFloat) {
+    public func scale(sx sx: CGFloat, sy: CGFloat) {
         self.transform = CGAffineTransformScale(self.transform, sx, sy)
     }
     
@@ -198,7 +198,7 @@ extension UIView {
      
      - Parameter angle: The angle to rotate in radians
      */
-    func rotate(angle angle: CGFloat) {
+    public func rotate(angle angle: CGFloat) {
         self.transform = CGAffineTransformRotate(self.transform, angle)
     }
     
@@ -208,7 +208,7 @@ extension UIView {
      - Parameter tx: Translation distance along the x axis
      - Parameter ty: Translation distance along the y axis
      */
-    func translateFrame(tx tx: CGFloat = 0, ty: CGFloat = 0) {
+    public func translateFrame(tx tx: CGFloat = 0, ty: CGFloat = 0) {
         var frame = self.frame
         frame.origin.x = frame.origin.x + tx
         frame.origin.y = frame.origin.y + ty
@@ -221,7 +221,7 @@ extension UIView {
      - Parameter deltaWidth: The amount to stretch the frame in the x direction
      - Parameter deltaHeight: The amount to stretch the frame in the y direction
      */
-    func stretchFrame(deltaWidth deltaWidth: CGFloat, deltaHeight: CGFloat) {
+    public func stretchFrame(deltaWidth deltaWidth: CGFloat, deltaHeight: CGFloat) {
         var frame = self.frame
         frame.size.width = frame.size.width + deltaWidth
         frame.size.height = frame.size.height + deltaHeight
@@ -234,7 +234,7 @@ extension UIView {
      - Parameter width: The new width
      - Parameter height: The new height
      */
-    func resizeFrame(width width: CGFloat, height: CGFloat) {
+    public func resizeFrame(width width: CGFloat, height: CGFloat) {
         var frame = self.frame
         frame.size.width = width
         frame.size.height = height
@@ -249,7 +249,7 @@ extension UIView {
      transform is applied. Smaller values will have an exaggerated perspective.
      Default value is 1000 points.
      */
-    func flipHorizontal(perspectiveDistance: CGFloat = 1000.0) {
+    public func flipHorizontal(perspectiveDistance: CGFloat = 1000.0) {
         self.layer.transform.m34 = -1.0 / perspectiveDistance
         self.layer.transform = CATransform3DRotate(self.layer.transform, CGFloat(M_PI), 0, 1.0, 0)
     }
@@ -262,7 +262,7 @@ extension UIView {
      transform is applied. Smaller values will have an exaggerated perspective.
      Default value is 1000 points.
      */
-    func flipVertical(perspectiveDistance: CGFloat = 1000.0) {
+    public func flipVertical(perspectiveDistance: CGFloat = 1000.0) {
         self.layer.transform.m34 = -1.0 / perspectiveDistance
         self.layer.transform = CATransform3DRotate(self.layer.transform, CGFloat(M_PI), 1.0, 0, 0)
     }
@@ -273,7 +273,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns: An `Animation` that can be chained or altered.
      */
-    func fadeIn(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
+    public func fadeIn(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
         self.alpha = 0.0
         return animate(duration: duration) {
             self.alpha = 1.0
@@ -286,7 +286,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns An `Animation` that can be chained or altered.
      */
-    func fadeOut(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
+    public func fadeOut(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
         return animate(duration: duration) {
             self.alpha = 0.0
         }
