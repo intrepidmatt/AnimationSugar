@@ -16,20 +16,20 @@ import UIKit
  - Returns An `Animation` object that can be further modified (e.g. changing an
  animation curve) or chained with further animations.
  */
-public func animate(duration duration: NSTimeInterval = Animation.defaultAnimationDuration, animations: () -> ()) -> Animation {
+public func animate(duration duration: TimeInterval = Animation.defaultAnimationDuration, animations: @escaping () -> ()) -> Animation {
     return Animation(duration: duration, animations: animations)
 }
 
 public class Animation {
     
     private struct Constants {
-        static let DefaultAnimationDuration: NSTimeInterval = 0.3
+        static let DefaultAnimationDuration: TimeInterval = 0.3
     }
     
     public static var defaultAnimationDuration = Constants.DefaultAnimationDuration
     private let animations: () -> ()
-    private let duration: NSTimeInterval
-    private var delay: NSTimeInterval = 0
+    private let duration: TimeInterval
+    private var delay: TimeInterval = 0
     private var options: UIViewAnimationOptions?
     private var completion: ((Bool) -> ())?
     private var springDampingRatio: CGFloat?
@@ -45,12 +45,12 @@ public class Animation {
      - Parameter startNow: A boolean indicating whether to immediately start the animation
      or wait to be triggered later. Chained animations set this parameter to false.
      */
-    init(duration: NSTimeInterval, animations: () -> (), startNow: Bool = true) {
+    init(duration: TimeInterval, animations: @escaping () -> (), startNow: Bool = true) {
         self.duration = duration
         self.animations = animations
         
         if (startNow) {
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.start()
             }
         }
@@ -78,7 +78,7 @@ public class Animation {
      - Parameter delay: The amount of time to delay.
      - Returns An `Animation` object to be modified or chained with further animations.
      */
-    public func withDelay(delay: NSTimeInterval) -> Animation {
+    public func withDelay(delay: TimeInterval) -> Animation {
         self.delay = delay
         return self
     }
@@ -89,7 +89,7 @@ public class Animation {
      - Parameter completion: A block of code to run.
      - Returns An `Animation` object to be modified or chained with further animations.
      */
-    public func withCompletion(completion: (Bool) -> ()) -> Animation {
+    public func withCompletion(completion: @escaping (Bool) -> ()) -> Animation {
         self.completion = completion
         return self
     }
@@ -125,7 +125,7 @@ public class Animation {
      - Parameter animations: A block containing changes to `UIView` animatable properties.
      - Returns An `Animation` object to be modified or chained with further animations
      */
-    public func thenAnimate(duration duration: NSTimeInterval = defaultAnimationDuration, animations: () -> ()) -> Animation {
+    public func thenAnimate(duration duration: TimeInterval = defaultAnimationDuration, animations: @escaping () -> ()) -> Animation {
         let nextAnimation = Animation(duration: duration, animations: animations, startNow: false)
         nextAnimation.prevAnimation = self
         self.nextAnimation = nextAnimation
@@ -152,8 +152,8 @@ public class Animation {
                 nextAnimation.prevAnimation = nil
             }
             
-            guard let dampingRatio = springDampingRatio, initialVelocity = springInitialVelocity else {
-                UIView.animateWithDuration(duration,
+            guard let dampingRatio = springDampingRatio, let initialVelocity = springInitialVelocity else {
+                UIView.animate(withDuration: duration,
                     delay: delay,
                     options: options ?? [],
                     animations: animations,
@@ -161,7 +161,7 @@ public class Animation {
                 return
             }
             
-            UIView.animateWithDuration(duration,
+            UIView.animate(withDuration: duration,
                 delay: delay,
                 usingSpringWithDamping: dampingRatio,
                 initialSpringVelocity: initialVelocity,
@@ -180,7 +180,7 @@ extension UIView {
      - Parameter ty: Translation distance along the y axis
      */
     public func translate(tx tx: CGFloat = 0, ty: CGFloat = 0) {
-        self.transform = CGAffineTransformTranslate(self.transform, tx, ty)
+        self.transform = self.transform.translatedBy(x: tx, y: ty)
     }
     
     /**
@@ -190,7 +190,7 @@ extension UIView {
      - Parameter xy: Scale factor in the y dimension
      */
     public func scale(sx sx: CGFloat, sy: CGFloat) {
-        self.transform = CGAffineTransformScale(self.transform, sx, sy)
+        self.transform = self.transform.scaledBy(x: sx, y: sy)
     }
     
     /**
@@ -199,7 +199,7 @@ extension UIView {
      - Parameter angle: The angle to rotate in radians
      */
     public func rotate(angle angle: CGFloat) {
-        self.transform = CGAffineTransformRotate(self.transform, angle)
+        self.transform = self.transform.rotated(by: angle)
     }
     
     /**
@@ -273,7 +273,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns: An `Animation` that can be chained or altered.
      */
-    public func fadeIn(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
+    public func fadeIn(duration duration: TimeInterval = Animation.defaultAnimationDuration) -> Animation {
         self.alpha = 0.0
         return animate(duration: duration) {
             self.alpha = 1.0
@@ -286,7 +286,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns An `Animation` that can be chained or altered.
      */
-    public func fadeOut(duration duration: NSTimeInterval = Animation.defaultAnimationDuration) -> Animation {
+    public func fadeOut(duration duration: TimeInterval = Animation.defaultAnimationDuration) -> Animation {
         return animate(duration: duration) {
             self.alpha = 0.0
         }
