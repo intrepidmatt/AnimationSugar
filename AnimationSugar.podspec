@@ -8,14 +8,14 @@
 
 Pod::Spec.new do |s|
   s.name             = "AnimationSugar"
-  s.version          = "0.0.2"
+  s.version          = "1.0.0"
   s.summary          = "Syntactic sugar for iOS animations."
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
 #   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!  
+#   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description      = <<-DESC
   A tiny Swift library for cleaning up your animation code. Easily tweak options
   with fluent-style syntax, and avoid nested callback for multi-step animations.
