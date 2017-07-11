@@ -16,6 +16,7 @@ import UIKit
  - Returns An `Animation` object that can be further modified (e.g. changing an
  animation curve) or chained with further animations.
  */
+@discardableResult
 public func animate(duration: TimeInterval = Animation.defaultAnimationDuration, animations: @escaping () -> ()) -> Animation {
     return Animation(duration: duration, animations: animations)
 }
@@ -62,6 +63,7 @@ public class Animation {
      - Parameter option: The option(s) to set. E.g. `.withOption(.AnimationCurveEaseOut)`
      - Returns An `Animation` object that can be modified or chained with further animations.
      */
+    @discardableResult
     public func withOption(option: UIViewAnimationOptions) -> Animation {
         if let options = options {
             self.options = options.union(option)
@@ -78,6 +80,7 @@ public class Animation {
      - Parameter delay: The amount of time to delay.
      - Returns An `Animation` object to be modified or chained with further animations.
      */
+    @discardableResult
     public func withDelay(delay: TimeInterval) -> Animation {
         self.delay = delay
         return self
@@ -89,6 +92,7 @@ public class Animation {
      - Parameter completion: A block of code to run.
      - Returns An `Animation` object to be modified or chained with further animations.
      */
+    @discardableResult
     public func withCompletion(completion: @escaping (Bool) -> ()) -> Animation {
         self.completion = completion
         return self
@@ -110,6 +114,7 @@ public class Animation {
      animation to match a view velocity of 100 pt/s, use a value of 0.5.
      - Returns An `Animation` object to be modified or chained with further animations.
      */
+    @discardableResult
     public func withSpring(dampingRatio: CGFloat, initialVelocity: CGFloat) -> Animation {
         self.springDampingRatio = dampingRatio
         self.springInitialVelocity = initialVelocity
@@ -125,6 +130,7 @@ public class Animation {
      - Parameter animations: A block containing changes to `UIView` animatable properties.
      - Returns An `Animation` object to be modified or chained with further animations
      */
+    @discardableResult
     public func thenAnimate(duration: TimeInterval = defaultAnimationDuration, animations: @escaping () -> ()) -> Animation {
         let nextAnimation = Animation(duration: duration, animations: animations, startNow: false)
         nextAnimation.prevAnimation = self
@@ -273,6 +279,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns: An `Animation` that can be chained or altered.
      */
+    @discardableResult
     public func fadeIn(duration: TimeInterval = Animation.defaultAnimationDuration) -> Animation {
         self.alpha = 0.0
         return animate(duration: duration) {
@@ -286,6 +293,7 @@ extension UIView {
      - Parameter duration: The duration of the animation
      - Returns An `Animation` that can be chained or altered.
      */
+    @discardableResult
     public func fadeOut(duration: TimeInterval = Animation.defaultAnimationDuration) -> Animation {
         return animate(duration: duration) {
             self.alpha = 0.0
